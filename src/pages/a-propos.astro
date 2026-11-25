@@ -3,12 +3,11 @@ import Base from '@/layouts/Base.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { href } from '@/lib/url';
 
-/** Fondateurs : remplacer les `null` par les informations réelles. */
-const founders: { name: string | null; role: string | null; bio: string | null }[] = [
-  { name: null, role: null, bio: null },
-  { name: null, role: null, bio: null },
-  { name: null, role: null, bio: null },
-];
+/**
+ * Fondateurs : ajouter { name, role, bio } pour chacun. Tant que la liste est vide, la section
+ * « Les fondateurs » n'est pas affichée.
+ */
+const founders: { name: string; role: string; bio: string }[] = [];
 
 const principles = [
   ['Des produits ciblés', 'Nous préférons résoudre complètement un problème précis plutôt qu’en effleurer plusieurs.'],
@@ -45,12 +44,13 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('').sli
           Le premier, Factually, répond à un problème devenu quotidien : vérifier une information demande du temps, et ce
           temps manque. Le second, Tixa, part du métier de chauffeur de taxi et de ses contraintes très concrètes.
         </p>
-        <p><span class="todo">[À FOURNIR : date de création, contexte de la fondation, origine du nom Asans6]</span></p>
+        <p class="text-muted">Asans6 a été créée en novembre 2026, à Paris.</p>
       </div>
     </div>
   </section>
 
-  <!-- Fondateurs -->
+  <!-- Fondateurs (masqué tant que la liste est vide) -->
+  {founders.length > 0 && (
   <section class="border-y border-line bg-surface" aria-labelledby="fondateurs">
     <div class="container-page section-y">
       <h2 id="fondateurs" class="text-h2 font-[650]" data-reveal>Les fondateurs.</h2>
@@ -59,14 +59,14 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('').sli
           founders.map((f, i) => (
             <li data-reveal style={`--i:${i}`} class="grid gap-6 border-b border-line-strong py-8 sm:grid-cols-[6rem_1fr] md:grid-cols-12 md:gap-8 md:py-10">
               <div class="grid size-24 place-items-center border border-line-strong bg-bg md:col-span-2" aria-hidden="true">
-                <span class="font-display text-[2rem] font-bold text-muted">{f.name ? initials(f.name) : i + 1}</span>
+                <span class="font-display text-[2rem] font-bold text-muted">{initials(f.name)}</span>
               </div>
               <div class="md:col-span-4 md:col-start-4">
-                <h3 class="text-h3 font-semibold">{f.name ?? <span class="todo">[À FOURNIR : prénom et nom]</span>}</h3>
-                <p class="mt-2 text-muted">{f.role ?? <span class="todo">[À FOURNIR : rôle]</span>}</p>
+                <h3 class="text-h3 font-semibold">{f.name}</h3>
+                <p class="mt-2 text-muted">{f.role}</p>
               </div>
               <p class="max-w-[52ch] text-muted sm:col-start-2 md:col-span-5 md:col-start-8">
-                {f.bio ?? <span class="todo">[À FOURNIR : parcours en deux ou trois lignes, photo]</span>}
+                {f.bio}
               </p>
             </li>
           ))
@@ -74,6 +74,7 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('').sli
       </ul>
     </div>
   </section>
+  )}
 
   <!-- Vision -->
   <section class="container-page section-y" aria-labelledby="vision">

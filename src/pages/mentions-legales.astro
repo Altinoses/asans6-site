@@ -29,22 +29,26 @@ const toc = [
       Le présent site est édité par la société <strong>{l.companyName}</strong>, société par actions simplifiée (SAS).
     </p>
     <ul>
-      <li>Capital social : {l.capital ?? <span class="todo">[À FOURNIR]</span>}</li>
-      <li>Siège social : {l.headOffice ?? <span class="todo">[À FOURNIR : adresse complète]</span>}</li>
-      <li>Immatriculation : {l.rcs ?? <span class="todo">[À FOURNIR : RCS + ville]</span>}</li>
-      <li>SIREN : {l.siren ?? <span class="todo">[À FOURNIR]</span>}</li>
-      <li>Numéro de TVA intracommunautaire : {l.vat ?? <span class="todo">[À FOURNIR]</span>}</li>
-      <li>
-        Contact : {site.contact.email ? <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> : <span class="todo">[À FOURNIR : e-mail]</span>}
-        {site.contact.phone && <> · {site.contact.phone}</>}
-      </li>
+      {l.capital && <li>Capital social : {l.capital}</li>}
+      {l.headOffice && <li>Siège social : {l.headOffice}</li>}
+      {l.rcs && <li>Immatriculation : {l.rcs}</li>}
+      {l.siren && <li>SIREN : {l.siren}</li>}
+      {l.vat && <li>Numéro de TVA intracommunautaire : {l.vat}</li>}
+      {
+        site.contact.email && (
+          <li>
+            Contact : <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+            {site.contact.phone && <> · {site.contact.phone}</>}
+          </li>
+        )
+      }
     </ul>
   </section>
 
   <section>
     <h2 id="publication">2. Directeur de la publication</h2>
     <p>
-      Le directeur de la publication est {l.publicationDirector ?? <span class="todo">[À FOURNIR : prénom, nom, qualité (ex. président)]</span>}.
+      Le directeur de la publication est {l.publicationDirector ?? 'le président de la société'}.
     </p>
   </section>
 
@@ -55,7 +59,7 @@ const toc = [
       <li><strong>{l.host.name}</strong></li>
       <li>{l.host.address}</li>
       <li>Site : <a href={l.host.website} rel="noopener">{l.host.website.replace('https://', '')}</a></li>
-      <li>Téléphone : <span class="todo">[À FOURNIR : numéro de l’hébergeur, à vérifier selon l’offre retenue]</span></li>
+      {l.host.phone && <li>Téléphone : {l.host.phone}</li>}
     </ul>
   </section>
 

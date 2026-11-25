@@ -1,6 +1,6 @@
 /**
  * Informations de la société, centralisées ici.
- * Toute valeur `null` s'affiche sur le site comme un emplacement « [À FOURNIR] ».
+ * Une valeur `null` masque l'information correspondante sur le site (aucun « [À FOURNIR] » visible).
  * Liste complète des contenus à fournir : voir DECISIONS.md.
  */
 export const site = {
@@ -17,9 +17,9 @@ export const site = {
   indexable: false,
 
   contact: {
-    email: null as string | null,
+    email: 'contact@asans6.fr' as string | null,
     phone: null as string | null,
-    address: null as string | null,
+    address: '61 rue de Lyon, 75012 Paris' as string | null,
     linkedin: null as string | null,
   },
 
@@ -28,19 +28,24 @@ export const site = {
    * (ex. Formspree : https://formspree.io/f/xxxxxxx). Voir README.
    */
   formEndpoint: null as string | null,
+  /** Nom du service de formulaire (cité dans la politique de confidentialité), une fois branché. */
+  formService: null as string | null,
 
   legal: {
     companyName: 'Asans6',
+    // Valeur `null` : la ligne n'est pas affichée (pas d'emplacement « [À FOURNIR] » visible).
     capital: null as string | null,
-    rcs: null as string | null,
-    siren: null as string | null,
+    rcs: 'RCS Paris 132 498 775' as string | null,
+    siren: '132 498 775' as string | null,
+    // Pas encore de numéro de TVA valide (annuaire officiel des entreprises, novembre 2026).
     vat: null as string | null,
-    headOffice: null as string | null,
+    headOffice: '61 rue de Lyon, 75012 Paris' as string | null,
     publicationDirector: null as string | null,
     host: {
       name: 'GitHub, Inc. (service GitHub Pages)',
       address: '88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis',
       website: 'https://github.com',
+      phone: null as string | null,
     },
   },
 } as const;

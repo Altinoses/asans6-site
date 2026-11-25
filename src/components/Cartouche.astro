@@ -1,7 +1,7 @@
 ---
 /**
  * Le cartouche : encadré d'identification façon plan technique (fiche société, fiches produit, coordonnées).
- * Une valeur `null` affiche « [À FOURNIR] ».
+ * Une ligne dont la valeur est `null` n'est pas affichée.
  */
 interface Props {
   title: string;
@@ -9,7 +9,8 @@ interface Props {
   rows: { label: string; value: string | null; href?: string }[];
   class?: string;
 }
-const { title, reference, rows, class: className } = Astro.props;
+const { title, reference, rows: allRows, class: className } = Astro.props;
+const rows = allRows.filter((r) => r.value !== null);
 ---
 
 <aside class:list={['border border-line-strong bg-surface', className]} aria-label={title}>
@@ -23,7 +24,7 @@ const { title, reference, rows, class: className } = Astro.props;
         <div class="grid grid-cols-[minmax(7.5rem,40%)_1fr] border-b border-line last:border-b-0" data-reveal="fade" style={`--i:${i + 2}`}>
           <dt class="label border-r border-line px-5 py-3.5 leading-snug">{r.label}</dt>
           <dd class="min-w-0 px-5 py-3 text-[0.9375rem] leading-snug break-words text-ink">
-            {r.value === null ? <span class="todo">[À FOURNIR]</span> : r.href ? <a class="link" href={r.href}>{r.value}</a> : r.value}
+            {r.href ? <a class="link" href={r.href}>{r.value}</a> : r.value}
           </dd>
         </div>
       ))
